@@ -1,9 +1,11 @@
 package com.ogofit.game.handler;
 
+import com.ogofit.game.client.StompClient;
 import com.ogofit.game.models.Client;
 import com.ogofit.game.models.Instruction;
 import com.ogofit.game.models.State;
 import com.ogofit.game.utils.InstructionUtils;
+import lombok.SneakyThrows;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -24,9 +26,10 @@ public class InstructionCreatedHandler implements StompFrameHandler {
         return Instruction.class;
     }
 
+    @SneakyThrows
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println(payload);
+        System.out.println(StompClient.objectMapper.writeValueAsString(payload));
         InstructionUtils.verifyInstruction(client, session);
     }
 }

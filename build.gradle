@@ -3,7 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 }
-group 'org.example'
+group 'org.ogafit.game'
 version '1.0-SNAPSHOT'
 
 repositories {

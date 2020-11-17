@@ -1,7 +1,9 @@
 package com.ogofit.game.handler;
 
+import com.ogofit.game.client.StompClient;
 import com.ogofit.game.models.Client;
 import com.ogofit.game.utils.InstructionUtils;
+import lombok.SneakyThrows;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -19,11 +21,7 @@ public class OgoFitSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-//        session.subscribe("/topic/clients/" + client.getId(), new ClientRegisteredHandler(client, session));
-//        session.subscribe("/topic/clients/" + client.getId() + "/close", new ClientTerminationHandler(client, session));
-//
-//        // register the client to Server
-//        session.send("/app/clients/" + client.getId(), client);
+
     }
 
     @Override
@@ -37,11 +35,12 @@ public class OgoFitSessionHandler extends StompSessionHandlerAdapter {
         return Client.class;
     }
 
+    @SneakyThrows
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
         System.out.println("**** Client Registered ******");
         System.out.println("**** Great Buddy ****");
-        System.out.println(payload);
+        System.out.println(StompClient.objectMapper.writeValueAsString(payload));
     }
 }
 

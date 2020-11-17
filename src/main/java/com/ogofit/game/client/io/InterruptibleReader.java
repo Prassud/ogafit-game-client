@@ -31,13 +31,11 @@ public class InterruptibleReader implements Callable {
         try {
             while (!bufferedReader.ready()) {
                 if (!shouldRead.get()) {
-                    System.out.println("Interruptable Read() stopped");
                     return null;
                 }
             }
             input = bufferedReader.readLine();
         } catch (IOException e) {
-            System.out.println("Interruptable Read() cancelled");
             return null;
         }
         return input;
